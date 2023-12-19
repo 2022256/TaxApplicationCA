@@ -87,5 +87,86 @@ public class Login extends AdminAndUserOptions {
         System.out.println("Invalid username or password.");
     }
 }
+    
+    // Method to handle login for administrators
+    private void adminLogin() throws ClassNotFoundException {
+    System.out.println("---Admin Login---");
+
+    // Get username and password from user input
+    String username = input.getUserText("Enter username: ");
+    String password = input.getUserPassword("Enter password: ");
+
+    // Retrieve stored admin credentials
+    String storedUsername = properties.getProperty("adminUsername");
+    String storedPassword = properties.getProperty("adminPassword");
+
+    // Check if entered credentials match stored admin credentials
+    if (username.equals(storedUsername) && password.equals(storedPassword)) {
+        // Display admin options in a loop until the admin chooses to exit
+        String adminPrompt = "Admin logged in successfully.\n" +
+                "1. Change Username and Password.\n" +
+                "2. Access a list of Users in the system.\n" +
+                "3. Remove a user from the system.\n" +
+                "4. View operations performed by a user.\n" +
+                "5. Insert data into SQL table.\n" +
+                "6. View data and save it.\n" +
+                "7. Alter data in the table.\n" +
+                "8. Exit.\n" +
+                "9. Add user.";
+
+        int adminChoice = 0;
+        while (adminChoice != 8) {
+            adminChoice = input.getUserInt(adminPrompt);
+
+            // Perform actions based on admin choice
+            switch (adminChoice) {
+                case 1:
+                    // Change admin username and password
+                    String newAdminUsername = input.getUserText("Enter new admin username:");
+                    String newAdminPassword = input.getUserPassword("Enter new admin password:");
+                    AdminCredentialsManager adminManager = new AdminCredentialsManager();
+                    adminManager.changeAdminCredentials(newAdminUsername, newAdminPassword);
+                    break;
+                case 2:
+                    // Access a list of users in the system
+                    listUsers();
+                    break;
+                case 3:
+                    // Remove a user from the system
+                    removeUser(input.getUserText("User to remove:"));
+                    break;
+                case 4:
+                    // View operations performed by a user
+                    action.viewOperationsFromFile("user_actions.txt");
+                    break;
+                case 5:
+                    // Insert data into SQL table
+                    cal.CreateAndCalculate();
+                    break;
+                case 6:
+                    // View data and save it
+                    inter.viewAndSave();
+                    break;
+                case 7:
+                    // Alter data in the table
+                    inter.alterDataInvoke();
+                    break;
+                case 8:
+                    // Exit
+                    break;
+                case 9:
+                    // Add a new user
+                    addUser();
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+                    break;
+            }
+        }
+    } else {
+        System.out.println("Invalid username or password.");
+    }
+}
+
 
 }
