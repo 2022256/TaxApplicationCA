@@ -75,20 +75,8 @@ public class AdminAndUserOptions {
         }
     }
     
-    public void AdminCredentialsManager() {
-    // Initialize properties object to store admin credentials
-    properties = new Properties();
-    try (FileInputStream fileInputStream = new FileInputStream(FILE_NAME)) {
-        // Load properties from the file
-        properties.load(fileInputStream);
-    } catch (IOException e) {
-        // Print stack trace if there is an IOException while loading properties
-        e.printStackTrace();
-    }
-}
-
-// A protected inner class for managing admin credentials
-protected class AdminCredentialsManager {
+   // A protected inner class for managing admin credentials
+   protected class AdminCredentialsManager {
     // Constructor for AdminCredentialsManager
     public AdminCredentialsManager() {
         // Initialize properties object to store admin credentials
