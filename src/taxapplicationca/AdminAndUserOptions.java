@@ -164,5 +164,78 @@ protected class UserCredentialsManager {
     }
 }
 
+// Method to list all users and their credentials
+protected void listUsers() {
+    System.out.println("Admin credentials:");
+    System.out.println("Username: " + properties.getProperty("adminUsername"));
+    System.out.println("Password: " + properties.getProperty("adminPassword"));
+    System.out.println();
+
+    System.out.println("Regular user credentials:");
+    int userCount = Integer.parseInt(properties.getProperty("userCount", "0"));
+    for (int i = 1; i <= userCount; i++) {
+        System.out.println("User " + i + " credentials:");
+        System.out.println("Username: " + properties.getProperty("userUsername" + i));
+        System.out.println("Password: " + properties.getProperty("userPassword" + i));
+        System.out.println();
+    }
+}
+
+// Method to remove a user based on the provided username
+protected void removeUser(String usernameToRemove) {
+    int userCount = Integer.parseInt(properties.getProperty("userCount", "0"));
+    boolean userFound = false;
+
+    // Iterate through existing users to find the one to remove
+    for (int i = 1; i <= userCount; i++) {
+        String storedUsername = properties.getProperty("userUsername" + i);
+
+        if (usernameToRemove.equals(storedUsername)) {
+            // Remove the user's credentials from properties
+            properties.remove("userUsername" + i);
+            properties.remove("userPassword" + i);
+            userFound = true;
+            break;
+        }
+    }
+
+    if (userFound) {
+        properties.setProperty("userCount", String.valueOf(userCount - 1)); // Decrement the user count
+
+        saveProperties(); // Save the updated properties to the file
+        System.out.println("User " + usernameToRemove + " removed successfully.");
+    } else {
+        System.out.println("User " + usernameToRemove + " not found.");
+    }
+}
+
+// Method to add a new user
+protected void addUser() {
+    int userCount = Integer.parseInt(properties.getProperty("userCount", "0"));
+
+    // Get the new username and password for the user
+    String newUsername = input.getUserText("Enter new username: ");
+    String newPassword = input.getUserPassword("Enter new password: ");
+
+    boolean userExists = false;
+    for (int i = 1; i <= userCount; i++) {
+        if (newUsername.equals(properties.getProperty("userUsername" + i))) {
+            userExists = true;
+            break;
+        }
+    }
+
+    if (userExists) {
+        System.out.println("User " + newUsername + " already exists.");
+    } else {
+        userCount++;
+        properties.setProperty("userCount", String.valueOf(userCount)); // Increment the user count
+        properties.setProperty("userUsername" + userCount, newUsername);
+        properties.setProperty("userPassword" + userCount, newPassword);
+
+        saveProperties(); // Save the updated properties to the file
+        System.out.println("User " + newUsername + " added successfully.");
+    }
+}
 }
 
