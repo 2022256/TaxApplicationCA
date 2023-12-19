@@ -16,23 +16,49 @@ import java.util.*;
  */
 public class DatabaseInteraction extends Database {
     IOUtils input = new IOUtils();
+    // Method to update usernames in the 'user_income' table
     public void alterData(Database db, String oldUsername, String newUsername) {
     try (Connection conn = db.getConnection();
          PreparedStatement stmt = conn.prepareStatement("UPDATE user_income SET username = ? WHERE username = ?")) {
-        stmt.setString(1, newUsername);
-        stmt.setString(2, oldUsername);
+        stmt.setString(1, newUsername); // Set the new username
+        stmt.setString(2, oldUsername); // Set the old username to find records
         
-        int rowsUpdated = stmt.executeUpdate();
+        int rowsUpdated = stmt.executeUpdate(); // Execute the SQL update statement
 
+        // Check if any rows were updated
         if (rowsUpdated > 0) {
             System.out.println("Username updated successfully.");
         } else {
             System.out.println("No records found for the username: " + oldUsername);
         }
     } catch (SQLException e) {
-        e.printStackTrace();
+        e.printStackTrace(); // Print stack trace if an error occurs while updating username
     }
 }
+
+// Method to invoke the alteration of usernames in the 'user_income' table
+    public void alterDataInvoke(){
+    Database db = new Database(); // Initialize Database object
+
+    try {
+        // Establish a connection to the database
+        db.connect();
+        
+        // Get old and new usernames from user input
+        String oldUsername = input.getUserText("Enter the old username: ");
+        String newUsername = input.getUserText("Enter the new username: ");
+        
+        // Invoke the method to update usernames in the 'user_income' table
+        alterData(db, oldUsername, newUsername);
+        
+    } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace(); // Print stack trace if an SQL or ClassNotFound exception occurs
+    } finally {
+        // Close the database connection when done
+        db.close();
+    }
+}
+
     
 public ArrayList<String> fetchUserDataFromDatabase(Database db) throws SQLException {
     ArrayList<String> userData = new ArrayList<>();
