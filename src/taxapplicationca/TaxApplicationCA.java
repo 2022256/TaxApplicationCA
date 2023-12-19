@@ -7,7 +7,11 @@ package taxapplicationca;
 /**
  *
  * @author 4istik and ivan popov
+ * Ivan Popov 2022180
+ * Andrei Chistiakov 2022256
  * https://github.com/2022256/TaxApplicationCA
+ * demo screencast link below:
+ * https://drive.google.com/file/d/1v8bxBWBS7T8lZuAiHCIDilS-pPI0h7GX/view?usp=drive_link
  */
 public class TaxApplicationCA {
 
