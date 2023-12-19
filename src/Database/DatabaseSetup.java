@@ -9,7 +9,7 @@ import java.sql.*;
 
 /**
  *
- * @author ivanp
+ * @author ivanp, andreic
  */
 
     public class DatabaseSetup extends Database {    
