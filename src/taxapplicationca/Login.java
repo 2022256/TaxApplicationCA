@@ -168,5 +168,43 @@ public class Login extends AdminAndUserOptions {
     }
 }
 
+// Method to display the login menu for users and admins
+    public void LoginMenu() throws ClassNotFoundException {
+    System.out.println("TaxApp, Log in as User or Admin: ");
+
+    int choice = 0;
+
+    while (choice != 3) {
+        choice = input.getUserInt(
+                "1. Admin\n" +
+                "2. User\n" +
+                "3. Exit\n" +
+                "4. Sign up as User");
+
+        // Perform actions based on user's choice
+        switch (choice) {
+            case 1:
+                // Log in as an admin
+                adminLogin();
+                break;
+            case 2:
+                // Log in as a regular user
+                regularUserLogin();
+                break;
+            case 3:
+                // Exit the program
+                System.out.println("Bye");
+                System.exit(0);
+                break;
+            case 4:
+                // Sign up as a new user
+                addUser();
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
+    }
+}
 
 }
