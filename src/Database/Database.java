@@ -9,5 +9,7 @@ package Database;
  * @author ivanp
  */
 public class Database {
-    
+    static final String DB_URL = "jdbc:mysql://localhost:3306/mysql_db";    
+    static final String USER = "ooc2023";
+    static final String PASS = "ooc2023";
 }
