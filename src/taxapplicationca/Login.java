@@ -4,10 +4,17 @@
  */
 package taxapplicationca;
 
+import Calculation.*;
+import Database.*;
+import User.*;
+
 /**
  *
  * @author 4istik
  */
-public class Login {
-    
+public class Login extends AdminAndUserOptions {
+    UserCredentialsManager user = new UserCredentialsManager();
+    UserAction action = new UserAction();
+    Calculation cal = new Calculation();
+    DatabaseInteraction inter = new DatabaseInteraction();
 }
