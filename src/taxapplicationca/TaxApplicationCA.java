@@ -6,7 +6,8 @@ package taxapplicationca;
 
 /**
  *
- * @author 4istik
+ * @author 4istik and ivan popov
+ * https://github.com/2022256/TaxApplicationCA
  */
 public class TaxApplicationCA {
 
